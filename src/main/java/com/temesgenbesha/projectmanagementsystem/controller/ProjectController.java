@@ -19,6 +19,7 @@ import java.beans.PropertyEditorSupport;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @RestController
@@ -26,6 +27,22 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 @Controller
 public class ProjectController {
+
+    @InitBinder
+    public void initBinder( WebDataBinder binder )
+    {
+        binder.registerCustomEditor( LocalDateTime.class, new PropertyEditorSupport()
+        {
+            @Override
+            public void setAsText( String text ) throws IllegalArgumentException
+            {
+                //2022-06-03T00:57
+                //"2019-09-20T12:36:39.359"
+                System.out.println("Get time: "+text);
+                LocalDateTime.parse( text, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm") );
+            }
+        } );
+    }
 
     private final ProjectService projectService;
     private final IssueService issueService;
@@ -46,31 +63,20 @@ public class ProjectController {
 //        pRepo.save(project);
 //        return "redirect:/api/project";
 //    }
+//
+//    @RequestMapping(value =  "/api/issue")
+//    public String displayEnums(Model model){
+//        model.addAttribute("status", Status.values());
+//
+//        return "issue/new" ;
+//
+//    }
+//
+//    @PostMapping(value = "/api/issue")
+//    public ResponseEntity<IssueDTO> createNewIssue(@ModelAttribute("issue") IssueDTO issueDTO) throws URISyntaxException{
+//        IssueDTO createdIssue = issueService.addIssue(issueDTO);
+//        return ResponseEntity.created(new URI("/api/issue/" + createdIssue.getId())).build();
+//    }
 
-    @RequestMapping(value =  "/api/issue")
-    public String displayEnums(Model model){
-        model.addAttribute("status", Status.values());
 
-        return "issue/new" ;
-
-    }
-
-    @PostMapping(value = "/api/issue")
-    public ResponseEntity<IssueDTO> createNewIssue(@ModelAttribute("issue") IssueDTO issueDTO) throws URISyntaxException{
-        IssueDTO createdIssue = issueService.addIssue(issueDTO);
-        return ResponseEntity.created(new URI("/api/issue/" + createdIssue.getId())).build();
-    }
-
-    @InitBinder
-    public void initBinder( WebDataBinder binder )
-    {
-        binder.registerCustomEditor( LocalDate.class, new PropertyEditorSupport()
-        {
-            @Override
-            public void setAsText( String text ) throws IllegalArgumentException
-            {
-                LocalDate.parse( text.replaceAll("-", ""), DateTimeFormatter.ofPattern("yyyyMMdd") );
-            }
-        } );
-    }
 }

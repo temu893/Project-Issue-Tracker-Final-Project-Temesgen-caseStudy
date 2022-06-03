@@ -28,13 +28,13 @@ public class Project {
 
     private String projectDescription;
 //    @DateTimeFormat(pattern = "yyyy-MM-ddhh:mm")
-    private LocalDate startDate;
+    private LocalDateTime startDate;
    // @DateTimeFormat(pattern = "yyyy-MM-ddhh:mm")
-    private LocalDate targetEndDate;
+    private LocalDateTime targetEndDate;
 
-    private LocalDate actualEndDate;
+    private LocalDateTime actualEndDate;
 
-    private LocalDate createdOn;
+    private LocalDateTime createdOn;
 
     @OneToOne
     private User createdBy;

@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.Set;
@@ -70,17 +71,17 @@ public class DataGeneratorUtil implements CommandLineRunner {
 
         Project project1 = new Project();
         project1.setName("First Software project");
-        project1.setCreatedOn(LocalDate.now());
-        project1.setStartDate(LocalDate.now().plusDays(2L));
-        project1.setTargetEndDate(LocalDate.now().plusWeeks(6L));
+        project1.setCreatedOn(LocalDateTime.now());
+        project1.setStartDate(LocalDateTime.now().plusDays(2L));
+        project1.setTargetEndDate(LocalDateTime.now().plusWeeks(6L));
         project1.setCreatedBy(admin);
         project1 = projectRepository.save(project1);
 
         Project project2 = new Project();
         project2.setName("IBM project");
-        project2.setCreatedOn(LocalDate.now());
-        project2.setStartDate(LocalDate.now().plusDays(3L));
-        project2.setTargetEndDate(LocalDate.now().plusWeeks(8L));
+        project2.setCreatedOn(LocalDateTime.now());
+        project2.setStartDate(LocalDateTime.now().plusDays(3L));
+        project2.setTargetEndDate(LocalDateTime.now().plusWeeks(8L));
         project2.setCreatedBy(user1);
         project2 = projectRepository.save(project2);
 

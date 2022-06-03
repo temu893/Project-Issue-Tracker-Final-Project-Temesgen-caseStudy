@@ -4,6 +4,7 @@ import com.temesgenbesha.projectmanagementsystem.entity.Project;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 // The Mapper implemented inside the DTO
 // This method will return Project entity
@@ -14,13 +15,13 @@ public class ProjectDTO {
 
     private String projectDescription;
 //    @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm")
-    private LocalDate startDate;
+    private LocalDateTime startDate;
 //    @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm")
-    private LocalDate targetEndDate;
+    private LocalDateTime targetEndDate;
 
-    private LocalDate actualEndDate;
+    private LocalDateTime actualEndDate;
 
-    private LocalDate createdOn;
+    private LocalDateTime createdOn;
     private UserDTO createdBy;
 
     public Project toEntity() {
