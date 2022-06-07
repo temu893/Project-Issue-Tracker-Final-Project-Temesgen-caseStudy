@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -49,14 +50,11 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectDTO addProject(ProjectDTO projectDTO) {
         User admin = userRepository.findByUsername("temub").orElseThrow(() -> new UsernameNotFoundException("User with username temub not found!"));
 
-//        projectDTO.setStartDate(java.sql.= java.sql.Date.valueOf(localDate));
-//        projectDTO.setStartDate(LocalDate.of(2019, 7, 19, 15, 05, 30));
-//        projectDTO.setTargetEndDate(LocalDate.of(2019, 7, 19, 15, 05, 30));
 
 
         Project project = projectDTO.toEntity();
         project.setCreatedBy(admin);
-//        project.setCreatedOn(LocalDate.of(2019, 7, 19, 15, 05, 30));
+        project.setCreatedOn(LocalDateTime.now());
 
 
         project = projectRepository.save(project);

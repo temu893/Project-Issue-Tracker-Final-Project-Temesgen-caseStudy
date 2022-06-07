@@ -28,7 +28,11 @@ public class UIController {
 
 
     //PROJECT CONTROLLER
-    @GetMapping({"/api/project", "/"})
+    @GetMapping
+    public String index() {
+        return "redirect:/overview";
+    }
+    @GetMapping("/overview")
     public String getProjectOverviewPage(Model model) {
         //returning list of project
         model.addAttribute("projects", projectService.getAllProjects());
@@ -43,19 +47,7 @@ public class UIController {
 
         return "projectDetail";
     }
-    @GetMapping("/showUpdateProject")
-    public ModelAndView showProjectUpdate(@RequestParam Long id) throws Exception {
-        ModelAndView update = new ModelAndView("add-project-form");
-        Project project = pRepo.findById(id).get();
-        update.addObject("project",project);
-        return update ;
-    }
-    @DeleteMapping(path = "/project/{id}")
-    public  String deleteProject(@PathVariable("/project/{id}") Long id){
-        projectService.deleteProject(id);
-        return "redirect:/api/project";
 
-    }
 
     @GetMapping("/project/{id}/issue")
     public String getIssueFromSpecificProject(Model model, @PathVariable Long id) {

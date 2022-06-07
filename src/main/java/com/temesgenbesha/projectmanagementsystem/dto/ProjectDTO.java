@@ -2,6 +2,7 @@ package com.temesgenbesha.projectmanagementsystem.dto;
 
 import com.temesgenbesha.projectmanagementsystem.entity.Project;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,9 +15,11 @@ public class ProjectDTO {
     private String name;
 
     private String projectDescription;
-//    @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime startDate;
 //    @DateTimeFormat(pattern = "yyyy-MM-dd'T'hh:mm")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+
     private LocalDateTime targetEndDate;
 
     private LocalDateTime actualEndDate;

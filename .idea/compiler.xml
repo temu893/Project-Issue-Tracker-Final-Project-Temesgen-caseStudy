@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="project-management-system" />
         <module name="Project-Issue-Tracker-Final-Project-Temesgen-caseStudy" />
       </profile>
     </annotationProcessing>
@@ -14,6 +15,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Project-Issue-Tracker-Final-Project-Temesgen-caseStudy" options="-parameters" />
+      <module name="project-management-system" options="-parameters" />
     </option>
   </component>
 </project>

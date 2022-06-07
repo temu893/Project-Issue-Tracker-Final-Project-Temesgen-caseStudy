@@ -2,6 +2,7 @@ package com.temesgenbesha.projectmanagementsystem.controller;
 
 import com.temesgenbesha.projectmanagementsystem.dto.IssueDTO;
 import com.temesgenbesha.projectmanagementsystem.dto.ProjectDTO;
+import com.temesgenbesha.projectmanagementsystem.entity.Project;
 import com.temesgenbesha.projectmanagementsystem.entity.Status;
 import com.temesgenbesha.projectmanagementsystem.repository.ProjectRepository;
 import com.temesgenbesha.projectmanagementsystem.service.IssueService;
@@ -14,8 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
 import java.beans.PropertyEditorSupport;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDate;
@@ -26,39 +30,27 @@ import java.time.format.DateTimeFormatter;
 @RequiredArgsConstructor
 @Slf4j
 @Controller
+@RequestMapping("/api/project")
 public class ProjectController {
 
-    @InitBinder
-    public void initBinder( WebDataBinder binder )
-    {
-        binder.registerCustomEditor( LocalDateTime.class, new PropertyEditorSupport()
-        {
-            @Override
-            public void setAsText( String text ) throws IllegalArgumentException
-            {
-                //2022-06-03T00:57
-                //"2019-09-20T12:36:39.359"
-                System.out.println("Get time: "+text);
-                LocalDateTime.parse( text, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm") );
-            }
-        } );
-    }
 
     private final ProjectService projectService;
     private final IssueService issueService;
 
-    @Autowired
-    private ProjectRepository pRepo;
     //Adding new project
-    //FIXME not redirecting to "/api/Project page properly
-    @PostMapping(value = "/api/project")
-    public ResponseEntity<Object> createNewProject(@ModelAttribute("project") ProjectDTO projectDTO) throws URISyntaxException {
-        ProjectDTO createdProject = projectService.addProject(projectDTO);
-        return  ResponseEntity.created(new URI("/api/project/" + createdProject.getId() )).build() ;
-        //dss
+    @PostMapping
+    public void saveNewProject(@ModelAttribute("project") ProjectDTO projectDTO, HttpServletResponse response) throws IOException {
+        projectService.addProject(projectDTO);
+        response.sendRedirect("/overview?success");
     }
 
-//    @PostMapping("/sageroject")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+        projectService.deleteProject(id);
+        return ResponseEntity.ok().build();
+    }
+
+//    @PostMapping("/saveroject")
 //    public String saveNewProject(@ModelAttribute Project project) {
 //        pRepo.save(project);
 //        return "redirect:/api/project";

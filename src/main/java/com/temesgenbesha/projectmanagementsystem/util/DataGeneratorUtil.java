@@ -71,6 +71,8 @@ public class DataGeneratorUtil implements CommandLineRunner {
 
         Project project1 = new Project();
         project1.setName("First Software project");
+        project1.setProjectDescription("this is project description");
+
         project1.setCreatedOn(LocalDateTime.now());
         project1.setStartDate(LocalDateTime.now().plusDays(2L));
         project1.setTargetEndDate(LocalDateTime.now().plusWeeks(6L));
@@ -79,6 +81,7 @@ public class DataGeneratorUtil implements CommandLineRunner {
 
         Project project2 = new Project();
         project2.setName("IBM project");
+        project2.setProjectDescription("this is project description");
         project2.setCreatedOn(LocalDateTime.now());
         project2.setStartDate(LocalDateTime.now().plusDays(3L));
         project2.setTargetEndDate(LocalDateTime.now().plusWeeks(8L));
