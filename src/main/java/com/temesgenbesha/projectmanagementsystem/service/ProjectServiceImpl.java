@@ -70,4 +70,25 @@ public class ProjectServiceImpl implements ProjectService {
         projectRepository.deleteById(id);
 
     }
+
+    @Override
+    public ProjectDTO updateProject(Long id, ProjectDTO projectDTO) throws ProjectNotFoundException {
+        User admin = userRepository.findByUsername("temub").orElseThrow(() -> new UsernameNotFoundException("User with username temub not found!"));
+
+        Project project = projectRepository.findById(id).orElseThrow(() -> new ProjectNotFoundException(id));
+
+        project.setName(projectDTO.getName());
+        project.setProjectDescription(projectDTO.getProjectDescription());
+        project.setActualEndDate(projectDTO.getActualEndDate());
+        // TODO: user current user;
+        project.setModifiedBy(admin);
+        project.setModifiedOn(LocalDateTime.now());
+
+        project = projectRepository.save(project);
+        log.info("Project updated: {}", project);
+
+        return project.toDTO();
+    }
+
+
 }

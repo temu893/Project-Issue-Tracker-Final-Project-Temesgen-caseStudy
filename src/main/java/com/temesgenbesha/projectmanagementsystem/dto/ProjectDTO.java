@@ -21,6 +21,7 @@ public class ProjectDTO {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 
     private LocalDateTime targetEndDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 
     private LocalDateTime actualEndDate;
 

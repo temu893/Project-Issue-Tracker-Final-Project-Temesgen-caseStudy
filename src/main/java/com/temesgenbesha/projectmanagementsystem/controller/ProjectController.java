@@ -4,6 +4,7 @@ import com.temesgenbesha.projectmanagementsystem.dto.IssueDTO;
 import com.temesgenbesha.projectmanagementsystem.dto.ProjectDTO;
 import com.temesgenbesha.projectmanagementsystem.entity.Project;
 import com.temesgenbesha.projectmanagementsystem.entity.Status;
+import com.temesgenbesha.projectmanagementsystem.exception.ProjectNotFoundException;
 import com.temesgenbesha.projectmanagementsystem.repository.ProjectRepository;
 import com.temesgenbesha.projectmanagementsystem.service.IssueService;
 import com.temesgenbesha.projectmanagementsystem.service.ProjectService;
@@ -43,18 +44,18 @@ public class ProjectController {
         projectService.addProject(projectDTO);
         response.sendRedirect("/overview?success");
     }
-
+    @PostMapping("/{id}")
+    public void updateProject(@PathVariable Long id, @ModelAttribute("project") ProjectDTO projectDTO, HttpServletResponse response) throws ProjectNotFoundException, IOException, ProjectNotFoundException {
+        projectService.updateProject(id, projectDTO);
+        response.sendRedirect("/overview?updated");
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
         projectService.deleteProject(id);
         return ResponseEntity.ok().build();
     }
 
-//    @PostMapping("/saveroject")
-//    public String saveNewProject(@ModelAttribute Project project) {
-//        pRepo.save(project);
-//        return "redirect:/api/project";
-//    }
+
 //
 //    @RequestMapping(value =  "/api/issue")
 //    public String displayEnums(Model model){

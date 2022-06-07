@@ -48,6 +48,12 @@ public class UIController {
         return "projectDetail";
     }
 
+    @GetMapping("/project/{id}/update")
+    public String showUpdateProject(Model model, @PathVariable Long id) throws Exception {
+        model.addAttribute("project", projectService.getProjectById(id));
+        return "updateProject";
+    }
+
 
     @GetMapping("/project/{id}/issue")
     public String getIssueFromSpecificProject(Model model, @PathVariable Long id) {
@@ -73,6 +79,7 @@ public class UIController {
 
         return "createNewIssue";
     }
+
 
 
 
