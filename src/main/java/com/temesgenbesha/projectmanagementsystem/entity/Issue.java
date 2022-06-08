@@ -9,6 +9,7 @@ import org.hibernate.Hibernate;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -25,20 +26,22 @@ public class Issue {
     private String description;
 
     @OneToOne
-    private User createdBy;
-    private LocalDate createdOn;
+    private User createdBy ;
+    private LocalDateTime createdOn;
 
     @OneToOne
-    private User assignedTo;
-    private LocalDate assignedOn;
+    private User assignedTo ;
+//    private String assignedToId;
+
+    private LocalDateTime assignedOn;
     private Status status;
     private Priority priority;
-    private LocalDate targetResolutionDate;
+    private LocalDateTime targetResolutionDate;
     private String resolutionSummary;
 
     @OneToOne
-    private User modifiedBy;
-    private LocalDate modifiedOn;
+    private User modifiedBy ;
+    private LocalDateTime modifiedOn;
 
     @ManyToOne
     private Project project;
@@ -62,10 +65,12 @@ public class Issue {
         IssueDTO issueDTO = new IssueDTO();
         issueDTO.setId(id);
         issueDTO.setSummary(summary);
+//        issueDTO.getAssignedToId();
         issueDTO.setDescription(description);
         if (createdBy != null) {
             issueDTO.setCreatedBy(createdBy.toDTO());
         }
+
         issueDTO.setCreatedOn(createdOn);
         if (assignedOn != null) {
             issueDTO.setAssignedTo(assignedTo.toDTO());

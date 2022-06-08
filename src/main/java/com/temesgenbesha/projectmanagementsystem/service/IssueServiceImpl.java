@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 @Service
@@ -43,6 +44,7 @@ public class IssueServiceImpl implements IssueService {
         return issue.toDTO();
     }
 
+
     @Override
     public IssueDTO addIssue(IssueDTO issueDTO) {
         User admin = userRepository.findByUsername("temub").orElseThrow(() -> new UsernameNotFoundException("User with username temub not found!"));
@@ -50,16 +52,16 @@ public class IssueServiceImpl implements IssueService {
 
         Issue issue = issueDTO.toEntity();
         issue.getId();
-        issue.setSummary("this is a summery for this Issue");
-        issue.setDescription("this is description for the issue");
-        issue.setCreatedBy(admin);
-        issue.getCreatedOn();
-        issue.setAssignedTo(user1);
-        issue.setAssignedOn(LocalDate.now());
-        issue.setStatus(Status.OPEN);
-        issue.setPriority(Priority.LOW);
+        issue.setSummary(issueDTO.getSummary());
+        issue.setDescription(issueDTO.getDescription());
+        issue.setCreatedBy(issueDTO.getCreatedBy().toEntity());
+        issue.setCreatedOn(LocalDateTime.now());
+        issue.setAssignedTo(issueDTO.getAssignedTo().toEntity());
+        issue.setAssignedOn(LocalDateTime.now());
+        issue.setStatus(issueDTO.getStatus());
+        issue.setPriority(issueDTO.getPriority());
         issue.getTargetResolutionDate();
-        issue.setResolutionSummary("this is resolution summery");
+        issue.setResolutionSummary(issueDTO.getResolutionSummary());
 
         issue = issueRepository.save(issue);
         log.info("Created new issue ", issue);

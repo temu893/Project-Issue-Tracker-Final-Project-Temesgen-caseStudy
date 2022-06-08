@@ -33,43 +33,41 @@
                 </div>
             </div>
             <!-- Issue assigned To input -->
-<!--            list of users that are in the data base-->
+            <!--            list of users that are in the data base-->
             <div class="col-md-6 mb-2">
                 <div class="form-outline mb-4">
                     <label class="form-label" for="assignedTo">Assigned To</label>
-                    <input type="search" id="assignedTo" th:field="*{assignedTo}" class="form-control col-4 mb-4" required/>
+                    <select id="assignedTo" class="form-select" th:field="*{assignedTo}">
+                        <option th:each="user : ${users}" th:value="${user.username}" th:text="${user.username}"></option>
+                    </select>
                 </div>
             </div>
 
             <!-- Issue Status input -->
-<!--         problem   not showing the enum values on status dropdown-->
-<!--            //FIXME problem   not showing the enum values on status dropdown-->
+            <!--         problem   not showing the enum values on status dropdown-->
+            <!--            //FIXME problem   not showing the enum values on status dropdown-->
 
             <div class="col-md-6 mb-2">
                 <div class="form-outline mb-4">
-                    <label class="form-label" th:for="status" > Status</label>
-                    <select class="form-select"  th:field = "*{status}">
-                        <option
-                                th:each = "status : ${status}"
-                                th:text = "${status.name}"
-                                th:value ="${status}"></option>
+                    <label class="form-label" th:for="status"> Status</label>
+                    <select class="form-select" th:field="*{status}">
+                        <option value="IN_PROGRESS">In progress</option>
+                        <option value="OPEN">Open</option>
+                        <option value="DONE">Done</option>
                     </select>
-
                 </div>
             </div>
 
             <!-- Issue priority input -->
-<!--            //FIXME    problem   not showing the enum values on Priority dropdown-->
+            <!--            //FIXME    problem   not showing the enum values on Priority dropdown-->
             <div class="col-md-6 mb-2">
                 <div class="form-outline mb-4">
-                    <label class="form-label" th:for="priority" > Priority</label>
-                    <select class="form-select"  th:field = "*{priority}">
-                        <option
-                                th:each = "priority : ${priority}"
-                                th:text = "${priority.name}"
-                                th:value ="${priority}"></option>
+                    <label class="form-label" th:for="priority"> Priority</label>
+                    <select class="form-select" th:field="*{priority}">
+                        <option value="LOW">Low</option>
+                        <option value="NORMAL">Normal</option>
+                        <option value="HIGH">High</option>
                     </select>
-
                 </div>
             </div>
             <!-- target Resolution Date input -->
@@ -93,7 +91,7 @@
 
     </form>
     <hr/>
-    <a th:href="@{'/project/' + ${project.id} + '/issue'}">Back to Issue List</a>
+    <!--    <a th:href="@{'/project/' + ${project.id} + '/issue'}">Back to Issue List</a>-->
 
 
 </div>

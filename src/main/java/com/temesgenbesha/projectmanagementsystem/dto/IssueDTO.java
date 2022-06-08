@@ -4,21 +4,35 @@ import com.temesgenbesha.projectmanagementsystem.entity.Issue;
 import com.temesgenbesha.projectmanagementsystem.entity.Priority;
 import com.temesgenbesha.projectmanagementsystem.entity.Status;
 import lombok.Data;
+import org.springframework.data.annotation.Transient;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
+//@Transient
 public class IssueDTO {
     private Long id;
     private String summary;
     private String description;
     private UserDTO createdBy;
-    private LocalDate createdOn;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+
+    private LocalDateTime createdOn;
     private UserDTO assignedTo;
-    private LocalDate assignedOn;
+    // New Transient attribute to bind assignedToId from select component
+
+//    private String assignedToId;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+
+    private LocalDateTime assignedOn;
     private Status status;
     private Priority priority;
-    private LocalDate targetResolutionDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+
+    private LocalDateTime targetResolutionDate;
     private String resolutionSummary;
     private ProjectDTO project;
 
@@ -29,6 +43,7 @@ public class IssueDTO {
         issue.setId(id);
         issue.setSummary(summary);
         issue.setDescription(description);
+//        issue.setAssignedToId(assignedToId);
         if (createdBy != null) {
             issue.setCreatedBy(createdBy.toEntity());
         }

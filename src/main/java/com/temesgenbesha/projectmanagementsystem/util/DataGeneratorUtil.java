@@ -92,12 +92,12 @@ public class DataGeneratorUtil implements CommandLineRunner {
         issue1.setSummary("Example Summary");
         issue1.setDescription("I have no idea where to start");
         issue1.setCreatedBy(user1);
-        issue1.setCreatedOn(LocalDate.now().minusDays(2L));
+        issue1.setCreatedOn(LocalDateTime.now().minusDays(2L));
         issue1.setAssignedTo(user2);
-        issue1.setAssignedOn(LocalDate.now());
+        issue1.setAssignedOn(LocalDateTime.now());
         issue1.setStatus(Status.OPEN);
         issue1.setPriority(Priority.LOW);
-        issue1.setTargetResolutionDate(LocalDate.now().plusWeeks(2L));
+        issue1.setTargetResolutionDate(LocalDateTime.now().plusWeeks(2L));
         issue1.setProject(project1);
         issue1 = issueRepository.save(issue1);
     }

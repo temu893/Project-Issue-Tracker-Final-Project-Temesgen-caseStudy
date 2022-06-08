@@ -66,6 +66,7 @@
        </tr>
        </tbody>
    </table>
+    <!--    project creation success massage-->
 
     <div class = "  card bg-success text-white m-1" th:if="${param.success }">
         <div class = "card-body">
@@ -73,7 +74,12 @@
         </div>
 
     </div>
-
+    <!-- Project Update success message -->
+    <div class="card bg-success text-white m-1" th:if="${param.updated}">
+        <div class="card-body">
+            You successfully updated a project!
+        </div>
+    </div>
 </div>
 
 

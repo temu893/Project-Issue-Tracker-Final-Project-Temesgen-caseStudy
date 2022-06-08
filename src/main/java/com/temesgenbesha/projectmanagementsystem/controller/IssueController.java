@@ -1,66 +1,61 @@
-
 package com.temesgenbesha.projectmanagementsystem.controller;
 
-        import com.temesgenbesha.projectmanagementsystem.dto.IssueDTO;
-        import com.temesgenbesha.projectmanagementsystem.dto.ProjectDTO;
-        import com.temesgenbesha.projectmanagementsystem.entity.Status;
-        import com.temesgenbesha.projectmanagementsystem.repository.ProjectRepository;
-        import com.temesgenbesha.projectmanagementsystem.service.IssueService;
-        import com.temesgenbesha.projectmanagementsystem.service.ProjectService;
-        import lombok.RequiredArgsConstructor;
-        import lombok.extern.slf4j.Slf4j;
-        import org.springframework.beans.factory.annotation.Autowired;
-        import org.springframework.http.ResponseEntity;
-        import org.springframework.stereotype.Controller;
-        import org.springframework.ui.Model;
-        import org.springframework.web.bind.WebDataBinder;
-        import org.springframework.web.bind.annotation.*;
+import com.temesgenbesha.projectmanagementsystem.dto.IssueDTO;
+import com.temesgenbesha.projectmanagementsystem.dto.ProjectDTO;
+import com.temesgenbesha.projectmanagementsystem.entity.Issue;
+import com.temesgenbesha.projectmanagementsystem.entity.Project;
+import com.temesgenbesha.projectmanagementsystem.entity.Status;
+import com.temesgenbesha.projectmanagementsystem.service.IssueService;
+import com.temesgenbesha.projectmanagementsystem.service.UserService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
-        import java.beans.PropertyEditorSupport;
-        import java.net.URI;
-        import java.net.URISyntaxException;
-        import java.time.LocalDate;
-        import java.time.LocalDateTime;
-        import java.time.format.DateTimeFormatter;
+import javax.servlet.http.HttpServletResponse;
+import java.beans.PropertyEditorSupport;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
 @Slf4j
-@Controller
+@RequestMapping("/api/issue")
 public class IssueController {
 
-    @InitBinder
-    public void initBinder( WebDataBinder binder )
-    {
-        binder.registerCustomEditor( LocalDateTime.class, new PropertyEditorSupport()
-        {
-            @Override
-            public void setAsText( String text ) throws IllegalArgumentException
-            {
-                //2022-06-03T00:57
-                //"2019-09-20T12:36:39.359"
-                System.out.println("Get time: "+text);
-                LocalDateTime.parse( text, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm") );
-            }
-        } );
-    }
 
-    private final IssueService issueService;
+        private final IssueService issueService;
+        private final UserService userService;
 
 
-    @RequestMapping(value =  "/api/issue")
-    public String displayEnums(Model model){
-        model.addAttribute("status", Status.values());
 
-        return "issue/new" ;
 
-    }
+//        @PostMapping
+//        public ResponseEntity<IssueDTO> kk(@ModelAttribute("issue") IssueDTO issueDTO) throws URISyntaxException {
+//                IssueDTO createdIssue = issueService.addIssue(issueDTO);
+//                return ResponseEntity.created(new URI("/api/issue/" + createdIssue.getId())).build();
+//        }
+//@RequestMapping(value = {"/issue/new"},method = RequestMethod.GET)
+//public String slelectOption(Model model){
+//        Issue issue = new Issue();
+//        model.addAttribute("issue", issue);
+//        Map<Long,String> user = (Map<Long, String>) userService.getAllUsers();
+//        model.addAttribute("user",user);
+//        return "createNewIssue";
+//}
 
-    @PostMapping(value = "/api/issue")
-    public ResponseEntity<IssueDTO> createNewIssue(@ModelAttribute("issue") IssueDTO issueDTO) throws URISyntaxException{
-        IssueDTO createdIssue = issueService.addIssue(issueDTO);
-        return ResponseEntity.created(new URI("/api/issue/" + createdIssue.getId())).build();
-    }
+        @PostMapping
+        public void createNewIssue(@ModelAttribute("issue") IssueDTO issueDTO, HttpServletResponse response) throws IOException {
+                issueService.addIssue(issueDTO);
+                response.sendRedirect("/issue/new");
+        }
 
 
 }
