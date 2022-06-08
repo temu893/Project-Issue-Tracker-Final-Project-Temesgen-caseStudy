@@ -11,6 +11,11 @@ public class ProjectManagementSystemApplicatioon {
 
     public static void main(String[] args) {
         SpringApplication.run(ProjectManagementSystemApplicatioon.class, args);
+
+        for(String arg : args){
+            System.out.println(arg);
+        }
     }
+
 
 }

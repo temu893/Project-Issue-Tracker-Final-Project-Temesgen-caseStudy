@@ -38,7 +38,7 @@
                 <div class="form-outline mb-4">
                     <label class="form-label" for="assignedTo">Assigned To</label>
                     <select id="assignedTo" class="form-select" th:field="*{assignedTo}">
-                        <option th:each="user : ${users}" th:value="${user.username}" th:text="${user.username}"></option>
+                        <option th:each="user : ${users}" th:value="${user}" th:text="${user.username}"></option>
                     </select>
                 </div>
             </div>

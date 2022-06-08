@@ -37,11 +37,6 @@ public class IssueController {
 
 
 
-//        @PostMapping
-//        public ResponseEntity<IssueDTO> kk(@ModelAttribute("issue") IssueDTO issueDTO) throws URISyntaxException {
-//                IssueDTO createdIssue = issueService.addIssue(issueDTO);
-//                return ResponseEntity.created(new URI("/api/issue/" + createdIssue.getId())).build();
-//        }
 //@RequestMapping(value = {"/issue/new"},method = RequestMethod.GET)
 //public String slelectOption(Model model){
 //        Issue issue = new Issue();
@@ -54,7 +49,7 @@ public class IssueController {
         @PostMapping
         public void createNewIssue(@ModelAttribute("issue") IssueDTO issueDTO, HttpServletResponse response) throws IOException {
                 issueService.addIssue(issueDTO);
-                response.sendRedirect("/issue/new");
+                response.sendRedirect("/project/{id}/issue");
         }
 
 
