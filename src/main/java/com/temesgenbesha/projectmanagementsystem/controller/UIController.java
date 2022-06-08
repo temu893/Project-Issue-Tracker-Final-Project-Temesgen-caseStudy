@@ -57,6 +57,15 @@ public class UIController {
     }
 
 
+
+    @GetMapping("/project/new")
+    public String createNewProject(Model model) {
+        model.addAttribute("project", new ProjectDTO());
+
+        return "createNewProject";
+    }
+
+
     @GetMapping("/project/{id}/issue")
     public String getIssueFromSpecificProject(Model model, @PathVariable Long id) {
         try {
@@ -64,15 +73,7 @@ public class UIController {
         } catch (ProjectNotFoundException e) {
             return "redirect:/project/" + id + "/issue?error";
         }
-
         return "issueOverview";
-    }
-
-    @GetMapping("/project/new")
-    public String createNewProject(Model model) {
-        model.addAttribute("project", new ProjectDTO());
-
-        return "createNewProject";
     }
 
     @GetMapping("/issue/new")
