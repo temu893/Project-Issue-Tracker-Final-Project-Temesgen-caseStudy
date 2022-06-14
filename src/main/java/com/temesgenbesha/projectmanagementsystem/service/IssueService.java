@@ -10,9 +10,12 @@ public interface IssueService {
 
     List<IssueDTO> getIssuesFromProject(Long projectId) throws ProjectNotFoundException;
 
-    IssueDTO getIssueById(long id) throws Exception;
-
-    IssueDTO addIssue(IssueDTO issueDTO);
+    List<IssueDTO> getIssueById(long id) throws Exception;
 
 
+
+
+    IssueDTO addIssue(IssueDTO issueDTO) throws Exception;
+
+    void deleteIssue(Long id);
 }

@@ -3,6 +3,7 @@ package com.temesgenbesha.projectmanagementsystem.controller;
 import com.temesgenbesha.projectmanagementsystem.dto.IssueDTO;
 import com.temesgenbesha.projectmanagementsystem.dto.ProjectDTO;
 import com.temesgenbesha.projectmanagementsystem.exception.ProjectNotFoundException;
+import com.temesgenbesha.projectmanagementsystem.model.ResponseMessage;
 import com.temesgenbesha.projectmanagementsystem.service.IssueService;
 import com.temesgenbesha.projectmanagementsystem.service.ProjectService;
 import com.temesgenbesha.projectmanagementsystem.service.UserService;
@@ -36,12 +37,12 @@ public class UIController {
     }
 
     //return single project by the id
-    @GetMapping("/project/{id}")
-    public String getProjectDetailPage(Model model, @PathVariable Long id) throws Exception {
-        model.addAttribute("project", projectService.getProjectById(id));
-
-        return "projectDetail";
-    }
+//    @GetMapping("/project/{id}")
+//    public String getProjectDetailPage(Model model, @PathVariable Long id) throws Exception {
+//        model.addAttribute("project", projectService.getProjectById(id));
+//
+//        return "projectDetail";
+//    }
 
     @GetMapping("/project/{id}/update")
     public String showUpdateProject(Model model, @PathVariable Long id) throws Exception {
@@ -63,7 +64,9 @@ public class UIController {
     public String getIssueFromSpecificProject(Model model, @PathVariable Long id) {
         try {
             model.addAttribute("issues", issueService.getIssuesFromProject(id));
-        } catch (ProjectNotFoundException e) {
+            model.addAttribute("project", projectService.getProjectById(id));
+            model.addAttribute("users",userService.getAllUsers());
+        } catch (Exception e) {
             return "redirect:/project/" + id + "/issue?error";
         }
         return "issueOverview";
@@ -76,12 +79,31 @@ public class UIController {
 //        return "issueDetail";
 //    }
     @GetMapping("/issue/new")
-    public String createNewIssue(Model model) {
+    public String createNewIssue(Model model ) {
         model.addAttribute("issue", new IssueDTO());
         model.addAttribute("users",userService.getAllUsers());
+        //model.addAttribute("projects",projectService.getAllProjects());
+
 
         return "createNewIssue";
     }
+//    @GetMapping("/project/{id}/issue")
+//    public ResponseMessage getByProject(@PathVariable Long id) throws ProjectNotFoundException {
+//        ResponseMessage responseMessage = ResponseMessage.getInstance();
+//            responseMessage.setResponse(issueService.getIssuesFromProject(id));
+//            responseMessage.setSuccess(true);
+//        return responseMessage;
+//    }
+
+//    @GetMapping("/issue/{id}")
+//    public String createNewIssue(Model model , @PathVariable Long id) throws Exception {
+//        model.addAttribute("issue", new IssueDTO());
+//        model.addAttribute("users",userService.getAllUsers());
+//        model.addAttribute("project", projectService.getProjectById(id));
+//
+//
+//        return "createNewIssue";
+//    }
 
 
 

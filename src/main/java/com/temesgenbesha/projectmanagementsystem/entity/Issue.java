@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -29,8 +30,8 @@ public class Issue {
     private User createdBy ;
     private LocalDateTime createdOn;
 
-    @OneToOne
-    private User assignedTo ;
+//    @OneToOne
+    private String assignedTo ;
 //    private String assignedToId;
 
     private LocalDateTime assignedOn;
@@ -72,18 +73,23 @@ public class Issue {
         }
 
         issueDTO.setCreatedOn(createdOn);
-        if (assignedOn != null) {
-            issueDTO.setAssignedTo(assignedTo.toDTO());
-        }
+//        if (assignedOn != null) {
+//            issueDTO.setAssignedTo(assignedTo.toDTO());
+//        }
+        issueDTO.setAssignedTo(assignedTo);
         issueDTO.setAssignedOn(assignedOn);
         issueDTO.setStatus(status);
         issueDTO.setPriority(priority);
         issueDTO.setTargetResolutionDate(targetResolutionDate);
         issueDTO.setResolutionSummary(resolutionSummary);
-        if (project != null) {
-            issueDTO.setProject(project.toDTO());
-        }
+//        if (project != null) {
+//            issueDTO.setProject(project.toDTO());
+//        }
+//        else             issueDTO.setProject(project.toDTO());
+
 
         return issueDTO;
     }
+
+
 }

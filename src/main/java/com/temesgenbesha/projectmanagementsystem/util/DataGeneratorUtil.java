@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Collections;
+import java.util.Optional;
 import java.util.Set;
 
 @Component
@@ -93,7 +94,7 @@ public class DataGeneratorUtil implements CommandLineRunner {
         issue1.setDescription("I have no idea where to start");
         issue1.setCreatedBy(user1);
         issue1.setCreatedOn(LocalDateTime.now().minusDays(2L));
-        issue1.setAssignedTo(user2);
+        issue1.setAssignedTo(user2.getUsername());
         issue1.setAssignedOn(LocalDateTime.now());
         issue1.setStatus(Status.OPEN);
         issue1.setPriority(Priority.LOW);

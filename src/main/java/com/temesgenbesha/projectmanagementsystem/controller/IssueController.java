@@ -5,7 +5,9 @@ import com.temesgenbesha.projectmanagementsystem.dto.ProjectDTO;
 import com.temesgenbesha.projectmanagementsystem.entity.Issue;
 import com.temesgenbesha.projectmanagementsystem.entity.Project;
 import com.temesgenbesha.projectmanagementsystem.entity.Status;
+import com.temesgenbesha.projectmanagementsystem.exception.ProjectNotFoundException;
 import com.temesgenbesha.projectmanagementsystem.service.IssueService;
+import com.temesgenbesha.projectmanagementsystem.service.ProjectService;
 import com.temesgenbesha.projectmanagementsystem.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +35,7 @@ public class IssueController {
 
         private final IssueService issueService;
         private final UserService userService;
+        private final ProjectService projectService;
 
 
 
@@ -46,10 +49,19 @@ public class IssueController {
 //        return "createNewIssue";
 //}
 
+
         @PostMapping
-        public void createNewIssue(@ModelAttribute("issue") IssueDTO issueDTO, HttpServletResponse response) throws IOException {
+        public void createNewIssue(@ModelAttribute("issue") IssueDTO issueDTO, HttpServletResponse response) throws Exception {
                 issueService.addIssue(issueDTO);
+
                 response.sendRedirect("/project/{id}/issue");
+
+        }
+
+        @DeleteMapping("/{id}")
+        public ResponseEntity<Void> deleteIssue(@PathVariable Long id) {
+                issueService.deleteIssue(id);
+                return ResponseEntity.ok().build();
         }
 
 

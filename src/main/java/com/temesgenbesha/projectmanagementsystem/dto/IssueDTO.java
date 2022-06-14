@@ -20,7 +20,7 @@ public class IssueDTO {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 
     private LocalDateTime createdOn;
-    private UserDTO assignedTo;
+    private String assignedTo;
     // New Transient attribute to bind assignedToId from select component
 
 //    private String assignedToId;
@@ -34,7 +34,7 @@ public class IssueDTO {
 
     private LocalDateTime targetResolutionDate;
     private String resolutionSummary;
-    private ProjectDTO project;
+    private Long project;
 
     // The Mapper implemented inside the DTO
     // This method will return Issue entity
@@ -47,17 +47,20 @@ public class IssueDTO {
         if (createdBy != null) {
             issue.setCreatedBy(createdBy.toEntity());
         }
-        issue.setCreatedOn(createdOn);
-        if (assignedTo != null) {
-            issue.setAssignedTo(assignedTo.toEntity());
-        }
+//        issue.setCreatedOn(createdOn);
+//        if (assignedTo != null) {
+//            issue.setAssignedTo(assignedTo.toEntity());
+//        }
+        issue.setAssignedTo(assignedTo);
         issue.setStatus(status);
         issue.setPriority(priority);
         setTargetResolutionDate(targetResolutionDate);
         setResolutionSummary(resolutionSummary);
-        if (priority != null) {
-            issue.setProject(project.toEntity());
-        }
+//        if (project != null) {
+//            issue.setProject(project.toEntity());
+//        }
+//else             issue.setProject(project.toEntity());
+
 
         return issue;
     }

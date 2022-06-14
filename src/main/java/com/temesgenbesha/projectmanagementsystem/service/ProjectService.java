@@ -8,7 +8,7 @@ import java.util.List;
 public interface ProjectService {
     List<ProjectDTO> getAllProjects();
 
-    ProjectDTO getProjectById(Long id) throws Exception;
+    Long getProjectById(Long id) throws Exception;
 
     ProjectDTO addProject(ProjectDTO projectDTO);
 

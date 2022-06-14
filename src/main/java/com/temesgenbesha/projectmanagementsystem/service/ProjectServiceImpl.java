@@ -36,14 +36,14 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public ProjectDTO getProjectById(Long id) throws Exception {
+    public Long getProjectById(Long id) throws Exception {
 //        Optional<ProjectDto> projectOptional = projectRepository.findById(id);
 //        if(projectOptional.isEmpty()) throw new Exception();
 //        return projectOptional.get();
 
 //
         Project project = projectRepository.findById(id).orElseThrow(() -> new ProjectNotFoundException(id));
-        return project.toDTO();
+        return project.toDTO().getId();
     }
 
     @Override

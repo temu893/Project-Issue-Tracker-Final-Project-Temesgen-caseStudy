@@ -18,7 +18,7 @@
 
 <div class="container">
 
-    <form th:action="@{'/api/project/' + ${project.id}}" method="post" th:object="${project}">
+    <form th:action="@{'/api/project/' + ${project.id} }" method="post" th:object="${project}">
         <div class="row">
             <h1 class="h1 mb-4">Update Project</h1>
 
